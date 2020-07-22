@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.mapper.ItemParamMapper">
+	<!--留着以后用  -->
+	<select id="findItemParamPage"  resultType="com.jt.vo.ItemParamVo">
+	select ip.* ,ic.name itemCatName
+	from tb_item_param ip join tb_item_cat ic 
+	on ip.item_cat_id=ic.id 
+	order by updated desc
+	</select>
+</mapper>

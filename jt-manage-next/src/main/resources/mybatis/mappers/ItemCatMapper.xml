@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.mapper.ItemCatMapper">
+	<!--留着以后用  -->
+	<resultMap type="com.jt.vo.EsayUITree" id="catTrees">
+	<id property="id"  column="id"/>
+	<result property="parentId"  column="parentId"/>
+	<result property="text"  column="name"/>
+	<collection property="children"   ofType="com.jt.vo.EsayUITree">
+			<id property="id"  column="fid"/>
+			<result property="parentId"  column="fparentId"/>
+			<result property="tag"  column="ftag"/>
+			<result property="text"  column="fname"/>
+ 			<collection property="children"   ofType="com.jt.vo.EsayUITree">
+					<id property="id"  column="sid"/>
+					<result property="parentId"  column="sparentId"/>
+					<result property="text"  column="sname"/>
+			</collection> 
+	</collection>
+	</resultMap>
+ 	<select id="findItemCatTree" resultMap="catTrees">
+	select zf.id,zf.name, zf.parent_id parentId, f.id fid,f.name fname,f.parent_id fparentId,0 ftag,s. id sid,s.name sname,s.parent_id sparentId            
+	from tb_item_cat zf , tb_item_cat f , tb_item_cat s
+	where zf.id=f.parent_id and f.id=s.parent_id
+	and zf.parent_id=0
+	</select> 
+</mapper>
