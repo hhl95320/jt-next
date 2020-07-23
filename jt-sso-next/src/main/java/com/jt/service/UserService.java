@@ -1,4 +1,4 @@
-package com.jt.server;
+package com.jt.service;
 
 import com.jt.vo.SysResult;
 

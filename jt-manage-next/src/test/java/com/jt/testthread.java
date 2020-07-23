@@ -1,5 +1,7 @@
 package com.jt;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ public class testthread {
 		thread1.start();
 		thread2.start();
 	
+	
 	}
 	
 	@Test
@@ -30,16 +33,11 @@ public class testthread {
 		String string4="1111";
 		String string5="1111";
 		char[] s= {'1','1','1','1'};
+		char[] s1= {'1','1','1','1'};
 		System.out.println(string==string1);
-		System.out.println(string4==string5);
-		System.out.println(string2==string3);
-		System.out.println(string2.equals(string3));
-		System.out.println(string4.equals(string5));
-		System.out.println(string4.equals(s));
-		System.out.println(string4.equals(string3));
-		System.out.println(string4.equals(string1));
-		System.out.println();
-		System.out.println();
+		System.out.println(s1==s);
+		System.out.println(s1.equals(s));
+		
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.jt.server.lmpl;
+package com.jt.service.lmpl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.mapper.UserMapper;
 import com.jt.pojo.User;
-import com.jt.server.UserService;
+import com.jt.service.UserService;
 import com.jt.vo.SysResult;
 
 @Service
@@ -30,6 +30,7 @@ public class UserServicelmpl implements UserService{
 		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(paramMap.get(type), info);
 		List<User> list = userMapper.selectList(queryWrapper);
+		
 		
 		if(list==null || list.size()==0) {
 			return SysResult.fail();

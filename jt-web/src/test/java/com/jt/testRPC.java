@@ -69,6 +69,22 @@ public class testRPC {
 		}
 			
 		}
+	
+	@Test
+		void tsettt() {
+//			Class sClass=this.getClass();
+//			System.out.println(sClass);
+//			System.out.println(sClass.getClass());
+//			System.out.println(sClass.getClass().getClass());
+//			System.out.println(sClass.getClass().getClass().getClass());
+//			
+//			System.out.println(ClassLoader.getSystemClassLoader());
+//			System.out.println(ClassLoader.getSystemClassLoader().getParent());
+//			System.out.println(ClassLoader.getSystemClassLoader().getParent().getParent());
+		byte[] cc= {1,2,3,5,6,4,6,4};
 		
+	
+			
+		}
 	
 }
