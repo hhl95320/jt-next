@@ -31,6 +31,7 @@ public class UserServicelmpl implements UserService{
 		queryWrapper.eq(paramMap.get(type), info);
 		List<User> list = userMapper.selectList(queryWrapper);
 		
+		
 		if(list==null || list.size()==0) {
 			return SysResult.fail();
 		}
