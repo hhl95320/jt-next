@@ -3,40 +3,57 @@ package com.jt.service.lmpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jt.annotation.CacheFind;
 import com.jt.mapper.UserMapper;
+import com.jt.objectmapper.ObjectMapperUtil;
 import com.jt.pojo.User;
 import com.jt.service.DubboUserService;
 import com.jt.service.UserService;
 import com.jt.vo.SysResult;
 
-@Service
+import redis.clients.jedis.JedisCluster;
+
+@Service(timeout=5000)
 public class DubboUserServicelmpl implements DubboUserService{
 	
 	@Autowired
 	UserMapper userMapper;
-	private static Map<Integer,String> paramMap;
-	static {
-		paramMap=new HashMap<>();
-		paramMap.put(1, "username");
-		paramMap.put(2, "phone");
-		paramMap.put(3, "email");
-	}
+	@Autowired(required=true)
+	JedisCluster jedis;
+	
 	@Override
-	public SysResult checkUser(String info, Integer type) {
-		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-		queryWrapper.eq(paramMap.get(type), info);
-		List<User> list = userMapper.selectList(queryWrapper);
+	@Transactional
+	public Integer saveUser(User user) {
 		
+		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+		int insert = userMapper.insert(user);
+		return insert;
+	}
+
+	//@CacheFind(key = "token",seconds = 604800)//7天
+	@Override
+	public String  doLogin(User user) {
+		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>(user);
 		
-		if(list==null || list.size()==0) {
-			return SysResult.sucess();
-		}
-		return SysResult.sucess(list);
+		User userDB= userMapper.selectOne(queryWrapper);
+		if(userDB==null)
+			return null;
+		String ticket = UUID.randomUUID().toString().replace("-", "");
+		//脱敏处理
+		userDB.setPassword("猜猜看？");
+		String json = ObjectMapperUtil.toJson(userDB);
+		jedis.setex(ticket, 7*24*3600,json );
+		return ticket;
 	}
 
 }

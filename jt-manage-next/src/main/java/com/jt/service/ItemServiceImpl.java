@@ -30,7 +30,7 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private ItemParamItemMapper itemParamItemMapper;
 	
-	@CacheFind(key = "ItemPage")
+	//@CacheFind(key = "ItemPage")
 	@Override
 	public EsayUITable<Item> findItemPage(Integer page, Integer rows) {
 		Page<Item> page2 = new Page<>(page, rows);

@@ -4,13 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.jt.objectmapper.ObjectMapperUtil;
+import com.jt.pojo.User;
 import com.jt.service.DubboUserService;
 import com.jt.service.UserService;
 import com.jt.vo.SysResult;
+
+import redis.clients.jedis.JedisCluster;
 
 
 @RestController
@@ -18,9 +23,11 @@ import com.jt.vo.SysResult;
 public class UserController {
 
 	//@Autowired  check = false,
-	@Reference(loadbalance="leastactive")
-	DubboUserService dubboUserService;
-//	UserService userService;
+
+	@Autowired
+	UserService userService;
+	@Autowired
+	JedisCluster jedisCluster;
 	
 	@RequestMapping("/getMsg")
 	public String msg() {
@@ -30,10 +37,24 @@ public class UserController {
 	@RequestMapping("check/{info}/{type}")
 	public JSONPObject check( @PathVariable String info ,@PathVariable Integer type
 			,String callback) {
-		SysResult checkUser = dubboUserService.checkUser(info,type);
+		SysResult checkUser = userService.checkUser(info,type);
 		//System.out.println(1/0);
 		return new JSONPObject(callback, checkUser);
 	}
+	@RequestMapping("query/{ticket}")
+	public JSONPObject check( @PathVariable String ticket ,String callback) {
+		
+		if(ticket==null)
+			return new JSONPObject(callback, SysResult.fail());
+	
+		if(!jedisCluster.exists(ticket))
+			return new JSONPObject(callback, SysResult.fail());
+
+		
+		
+		return new JSONPObject(callback, SysResult.sucess(jedisCluster.get(ticket)));
+	}
+
 	
 	
 }

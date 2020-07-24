@@ -1,6 +1,8 @@
 package com.jt.pojo;
 
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,7 +13,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @TableName("tb_user")
-public class User extends BasePojo {
+public class User extends BasePojo implements Serializable {
 	@TableId(type = IdType.AUTO)
 	 private  Long id;
 	 private String username;

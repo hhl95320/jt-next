@@ -3,12 +3,12 @@ server:
 spring:     #定义springmvc视图解析器
   mvc:    view:      prefix: /WEB-INF/views/
       suffix: .jsp  datasource:    url: jdbc:mysql:///jtdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
-    #driver-class-name: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
 dubbo:
   scan:
     basePackages: com.jt
   application:
-    name: consumer-user   #定义消费者名称
+    name: consumer-web   #定义消费者名称
   registry:               #注册中心地址
     address: zookeeper://192.168.126.129:2181?backup=192.168.126.129:2182,192.168.126.129:2183
   

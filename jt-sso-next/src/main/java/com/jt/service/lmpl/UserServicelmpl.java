@@ -33,7 +33,7 @@ public class UserServicelmpl implements UserService{
 		
 		
 		if(list==null || list.size()==0) {
-			return SysResult.fail();
+			return SysResult.sucess();
 		}
 		return SysResult.sucess(list);
 	}
