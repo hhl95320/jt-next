@@ -151,10 +151,6 @@
 	
 	<!--父级项目中不要添加 maven插件  -->
 	
-	
-	
-  
-  
   <modules>
   	<module>jt-common-next</module>
   	<module>jt-manage-next</module>

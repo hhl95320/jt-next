@@ -8,6 +8,7 @@
   <artifactId>jt-web-next</artifactId>
   <packaging>war</packaging>
   
+  
    <dependencies>
 		<!--2.添加依赖 -->
 		<dependency>
