@@ -161,5 +161,6 @@
   	<module>jt-web-next</module>
   	<module>jt-sso-next</module>
   	<module>jt-cart-next</module>
+  	<module>jt-order-next</module>
   </modules>
 </project>
