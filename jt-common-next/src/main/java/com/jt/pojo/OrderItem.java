@@ -1,6 +1,7 @@
 package com.jt.pojo;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,12 +13,12 @@ import lombok.experimental.Accessors;
 @TableName("tb_order_item")
 @Data
 @Accessors(chain=true)
-public class OrderItem extends BasePojo{
+public class OrderItem extends BasePojo implements Serializable{
 	
 	@TableId
     private String itemId;
 	
-	@TableId	
+	//@TableId	 //高版本主键只有一个
     private String orderId;
 
     private Integer num;

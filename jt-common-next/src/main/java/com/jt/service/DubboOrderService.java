@@ -1,8 +1,11 @@
 package com.jt.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.jt.pojo.Order;
 
-@Service
 public interface DubboOrderService {
 
+	String saveOrder(Order order);
+
+	Order findOrderById(String  id);
 }

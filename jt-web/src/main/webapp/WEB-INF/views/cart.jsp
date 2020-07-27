@@ -46,7 +46,7 @@
 </div>
 <div class="cart-inner">
     <div class="cart-thead clearfix">
-        <div class="column t-checkbox form"><input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_up" type="checkbox" checked="" value=""><label for="toggle-checkboxes_up">全选</label></div>
+        <div class="column t-checkbox form"><input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_up" type="checkbox"  value=""  onclick="checkboxAll()"><label for="toggle-checkboxes_up">全选</label></div>
         <div class="column t-goods">商品</div>
         <div class="column t-price">京东价</div>
         <div class="column t-promotion">优惠</div>
@@ -61,7 +61,7 @@
         	<c:set var="totalPrice"  value="${ totalPrice + (cart.itemPrice * cart.num)}"/>
 	        <div id="product_11345721" data-bind="rowid:1" class="item item_selected ">
 		        <div class="item_form clearfix">
-		            <div class="cell p-checkbox"><input data-bind="cbid:1" class="checkbox" type="checkbox" name="checkItem" checked="" value="11345721-1"></div>
+		            <div class="cell p-checkbox"><input data-bind="cbid:1" class="checkbox" type="checkbox" name="checkItem"   onclick="checkboxState()" value="11345721-1"></div>
 		            <div class="cell p-goods">
 		                <div class="p-img">
 		                	<a href="http://www.jt.com/items/${cart.itemId }.html" target="_blank">
@@ -101,9 +101,9 @@
         <div class="ui-ceilinglamp-1" style="width: 988px; height: 49px;"><div class="cart-dibu ui-ceilinglamp-current" style="width: 988px; height: 49px;">
           <div class="control fdibu fdibucurrent">
               <span class="column t-checkbox form">
-                  <input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_down" type="checkbox" checked="" value="" class="jdcheckbox">
+                  <input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_down" type="checkbox"   onclick="checkboxAll1()" value="" class="jdcheckbox">
                   <label for="toggle-checkboxes_down">
-                          全选
+                          全选<!--  checked="" -->
                   </label>
               </span>
               <span class="delete">
@@ -152,7 +152,34 @@
 <!-- footer end -->
 
 <!-- 购物车相关业务 -->
+<!--  <script type="text/javascript" src="/js/jquery.js"></script>  -->
 <script type="text/javascript" src="/js/cart.js"></script>
 <script type="text/javascript" src="/js/jquery.price_format.2.0.min.js"></script>
+
+<script>
+
+function checkboxAll(){;
+		var checked=$("#toggle-checkboxes_up").attr("checked");
+		$(".checkbox").attr("checked", checked )
+		$("#toggle-checkboxes_down").attr("checked", checked );
+		
+	}
+function checkboxAll1(){
+		var checked=$("#toggle-checkboxes_down").attr("checked");
+	
+		$(".checkbox").attr("checked", checked )
+		$("#toggle-checkboxes_up").attr("checked", checked );
+	}
+	function checkboxState(){
+		var flag=true;
+		$(".p-checkbox input[type='checkbox']").each(function(){
+					flag=flag&&$(this).attr("checked")
+				}
+		)
+		//console.log(flag);
+		$("#toggle-checkboxes_down").attr("checked",flag)
+		$("#toggle-checkboxes_up").attr("checked",flag)
+	 }
+</script>
 
 </html>

@@ -1,6 +1,7 @@
 package com.jt.pojo;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import lombok.experimental.Accessors;
 @TableName("tb_order")
 @Data
 @Accessors(chain=true)
-public class Order extends BasePojo{
+public class Order extends BasePojo implements Serializable{
 	@TableField(exist=false)	//入库操作忽略该字段
 	private OrderShipping orderShipping;
 								//封装订单商品信息  一对多
@@ -26,7 +27,7 @@ public class Order extends BasePojo{
     private String payment;
     private Integer paymentType;
     private String postFee;
-    private Integer status;
+    private Integer status;///1   2   3    4      5
     private Date paymentTime;
     private Date consignTime;
     private Date endTime;
