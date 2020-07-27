@@ -80,7 +80,7 @@ pageConfig.DATA_MScroll =[
     },
     {
         "alt": "",
-        "href": "http://www.jt.com/items/562379.html",
+        "href": "http://www.jt.com/items/1474391992.html",
         "index": 2,
         "src": "http://img14.360buyimg.com/da/jfs/t343/107/1701086212/14927/28286262/54407540N2aace14b.jpg",
         "ext": ""

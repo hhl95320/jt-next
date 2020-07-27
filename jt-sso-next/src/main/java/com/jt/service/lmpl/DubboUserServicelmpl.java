@@ -1,5 +1,6 @@
 package com.jt.service.lmpl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class DubboUserServicelmpl implements DubboUserService{
 	@Override
 	@Transactional
 	public Integer saveUser(User user) {
-		
+		user.setCreated(new Date());
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
 		int insert = userMapper.insert(user);
 		return insert;
@@ -41,13 +42,18 @@ public class DubboUserServicelmpl implements DubboUserService{
 
 	//@CacheFind(key = "token",seconds = 604800)//7天
 	@Override
+	@Transactional
 	public String  doLogin(User user) {
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-		QueryWrapper<User> queryWrapper = new QueryWrapper<>(user);
 		
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>(user);
 		User userDB= userMapper.selectOne(queryWrapper);
 		if(userDB==null)
 			return null;
+		//修改登录时间
+		User user2=new User().setId(userDB.getId());
+		user2.setUpdated(new Date());
+		userMapper.updateById(user2);
 		String ticket = UUID.randomUUID().toString().replace("-", "");
 		//脱敏处理
 		userDB.setPassword("猜猜看？");

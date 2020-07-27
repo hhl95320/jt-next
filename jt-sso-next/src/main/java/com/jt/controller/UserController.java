@@ -41,17 +41,18 @@ public class UserController {
 		//System.out.println(1/0);
 		return new JSONPObject(callback, checkUser);
 	}
+	/**
+	 * 会先用户登录信息
+	 * @param ticket
+	 * @param callback
+	 * @return
+	 */
 	@RequestMapping("query/{ticket}")
 	public JSONPObject check( @PathVariable String ticket ,String callback) {
-		
 		if(ticket==null)
 			return new JSONPObject(callback, SysResult.fail());
-	
 		if(!jedisCluster.exists(ticket))
 			return new JSONPObject(callback, SysResult.fail());
-
-		
-		
 		return new JSONPObject(callback, SysResult.sucess(jedisCluster.get(ticket)));
 	}
 
